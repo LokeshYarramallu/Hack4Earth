@@ -1,0 +1,21 @@
+### All products
+GET http://localhost:3000/products
+
+### Create 
+POST http://localhost:3000/products
+
+### Get by id 
+GET http://localhost:3000/products/1
+
+### Delete
+DELETE http://localhost:3000/products/12
+
+### Seller
+GET http://localhost:3000/sellers/3
+
+###All sellers
+GET http://localhost:3000/sellers
+
+
+### Customer By Id
+GET http://localhost:3000/customers/2
