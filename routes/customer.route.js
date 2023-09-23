@@ -1,19 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
+const bcrypt = require('bcrypt');
 const config = require("./config");
-const e = require("express");
 const connection = mysql.createConnection(config);
 
 async function verifyCustomer(email, password) {
   return new Promise((resolve, reject) => {
     const query =
-      "SELECT * FROM CustomerProfiles WHERE email = ? AND password = ?";
-    connection.query(query, [email, password], (err, results) => {
+      "SELECT * FROM CustomerProfiles WHERE email = ?";
+    connection.query(query, [email], (err, results) => {
       if (err) {
         reject(err);
       } else {
-        resolve(results);
+        if (results.length > 0) {
+          if (bcrypt.compareSync(password, results[0].password)) {
+            resolve(results[0]);
+          } else {
+            resolve({});
+          }
+        }
       }
     });
   });
@@ -21,6 +27,7 @@ async function verifyCustomer(email, password) {
 
 async function addCustomer(customer) {
   return new Promise((resolve, reject) => {
+    customer.password = bcrypt.hashSync(customer.password, 10);
     const query = "INSERT INTO CustomerProfiles SET ?";
     connection.query(query, customer, (err, results) => {
       if (err) {
@@ -81,7 +88,6 @@ async function buyProduct(ids) {
 }
 
 router.use(express.json());
-router.use(express.static('public'));
 
 
 router.post("/login", async (req, res) => {
@@ -90,20 +96,20 @@ router.post("/login", async (req, res) => {
   if (Object.keys(results).length === 0) {
     res.status(205).send(results);
   } else {
-    // res.redirect('home');
     res.status(201).send(results);
   }
 });
 
 router.post("/register", async (req, res) => {
-  const customer = req.body;
 
+  const customer = req.body;
   try {
     await addCustomer(customer);
-    res.send("Customer Added");
+    res.status(201).send(customer);
   } catch (error) {
+    console.log(error);
     if (error === "Customer already registered") {
-      res.status(409).send("Customer already registered");
+      res.status(409).send(error);
     } else {
       res.status(500).send("Internal Server Error");
     }

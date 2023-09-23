@@ -1,17 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const bcrypt = require('bcrypt');
 const config = require('./config');
 const connection = mysql.createConnection(config);
 
 async function verifyseller(seller_email, seller_password){
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM sellers WHERE seller_email = ? AND seller_password = ?';
-        connection.query(query, [seller_email, seller_password], (err, results) => {
+        const query = 'SELECT * FROM sellers WHERE seller_email = ?';
+        connection.query(query, [seller_email], (err, results) => {
             if (err) {
                 reject(err);
             } else {
-                resolve(results);
+                if (results.length > 0) {
+                    if (bcrypt.compareSync(seller_password, results[0].seller_password)) {
+                        resolve(results[0]);
+                    } else {
+                        resolve({});
+                    }
+                }
             }
         });
     });
@@ -50,11 +57,11 @@ async function getSellerByID(seller_id) {
 
 async function addSeller(seller) {
     return new Promise((resolve, reject) => {
+        seller.seller_password = bcrypt.hashSync(seller.seller_password, 10);
         const query = 'INSERT INTO sellers SET ?';
         connection.query(query, [seller], (err, results) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
-                    // Handle the duplicate entry error
                     const errorMessage = "Seller already registered";
                     return reject(errorMessage);
                 }
@@ -84,9 +91,9 @@ async function allsellers() {
 router.use(express.json());
 
 router.post('/login', async (req, res) => {
-    const { seller_email, seller_password } = req.body;  
+    const { seller_email, seller_password } = req.body;
     const result = await verifyseller(seller_email, seller_password);
-    res.send(result);
+    res.status(201).send(result);
   });
 
 router.get('/:seller_id', async (req, res) => {
@@ -98,14 +105,14 @@ router.get('/:seller_id', async (req, res) => {
 
   router.post('/register-seller', async (req, res) => {
     const seller = req.body;
-    
     try {
         await addSeller(seller);
-        res.send("Seller Added");
+        res.status(201).send("Seller Added");
     } catch (error) {
         if (error === "Seller already registered") {
             res.status(409).send("Seller already registered");
         } else {
+            console.log(error);
             res.status(500).send("Internal Server Error");
         }
     }

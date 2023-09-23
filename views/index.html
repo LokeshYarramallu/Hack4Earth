@@ -53,10 +53,10 @@
     </nav>
     <script>
       const name = document.getElementById("name");
-      if (sessionStorage.getItem("userloggdin") === "true") {
+      if (sessionStorage.getItem("userloggedin") === "true") {
         var details = sessionStorage.getItem("userdetails");
         details = JSON.parse(details);
-        name.textContent = "Hello, " +  details[0].customer_name;
+        name.textContent = "Hello, " + details.customer_name;
       }
     </script>
   </body>

@@ -12,38 +12,122 @@
           <h2>Sign In</h2>
           <form id="login-form">
             <div class="form-group">
-              <label for="email">Email address:</label>
+              <label for="login-email">Email address:</label>
               <input
                 type="email"
                 class="form-control"
-                id="email"
+                id="login-email"
                 name="email"
               />
             </div>
             <div class="form-group">
-              <label for="password">Password:</label>
+              <label for="login-password">Password:</label>
               <input
                 type="password"
                 class="form-control"
-                id="password"
+                id="login-password"
                 name="password"
               />
             </div>
             <button type="submit" class="btn btn-primary">Sign In</button>
           </form>
         </div>
+        <div class="col-md-6">
+          <h2>Sign Up</h2>
+          <form id="signup-form">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="customer_name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="age">Age:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="age"
+                name="age"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone_number">Phone Number:</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone_number"
+                name="phone_number"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="address">Address:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="zipcode">Zipcode:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="zipcode"
+                name="zipcode"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender:</label>
+              <select class="form-control" id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="signup-email">Email:</label>
+              <input
+                type="email"
+                class="form-control"
+                id="signup-email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password:</label>
+              <input
+                type="password"
+                class="form-control"
+                id="signup-password"
+                name="password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </form>
+        </div>
       </div>
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("login-form");
+        const loginForm = document.getElementById("login-form");
 
-        form.addEventListener("submit", function (e) {
+        loginForm.addEventListener("submit", function (e) {
           e.preventDefault();
 
           const formData = {
-            email: form.email.value,
-            password: form.password.value,
+            email: loginForm.querySelector("#login-email").value,
+            password: loginForm.querySelector("#login-password").value,
           };
 
           fetch("/customers/login", {
@@ -59,9 +143,9 @@
               }
               if (response.status === 201) {
                 response.json().then((data) => {
-                  const userdetails = JSON.stringify(data);
-                  sessionStorage.setItem("userloggdin", "true");
-                  sessionStorage.setItem("userdetails", userdetails);
+                  const userDetails = JSON.stringify(data);
+                  sessionStorage.setItem("userloggedin", "true");
+                  sessionStorage.setItem("userdetails", userDetails);
                   window.location.href = "/";
                 });
               } else if (response.status === 205) {
@@ -69,14 +153,46 @@
               }
               return response.json();
             })
-            .then((data) => {
-              console.log(data);
-            })
             .catch((error) => {
               console.error(
                 "There was a problem with the fetch operation:",
                 error
               );
+            });
+        });
+
+        const signupForm = document.getElementById("signup-form");
+
+        signupForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = {
+            customer_name: signupForm.querySelector("#name").value,
+            age: signupForm.querySelector("#age").value,
+            phone_number: signupForm.querySelector("#phone_number").value,
+            address: signupForm.querySelector("#address").value,
+            zipcode: signupForm.querySelector("#zipcode").value,
+            gender: signupForm.querySelector("#gender").value,
+            email: signupForm.querySelector("#signup-email").value,
+            password: signupForm.querySelector("#signup-password").value,
+          };
+
+          fetch("/customers/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => {
+              if (response.status === 201) {
+                signupForm.reset();
+                alert("User has been successfully registered");
+              } else if (response.status === 409) {
+                alert("You already have an account. Please login.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
             });
         });
       });
