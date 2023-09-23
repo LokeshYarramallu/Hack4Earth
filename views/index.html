@@ -43,13 +43,21 @@
         </form>
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="#" class="text-center">
+            <a href="/signin" class="text-center">
               <span class="glyphicon glyphicon-user"></span><br />
-              Sign Up / Login
+              <span id="name">Login / Sign Up</span>
             </a>
           </li>
         </ul>
       </div>
     </nav>
+    <script>
+      const name = document.getElementById("name");
+      if (sessionStorage.getItem("userloggdin") === "true") {
+        var details = sessionStorage.getItem("userdetails");
+        details = JSON.parse(details);
+        name.textContent = "Hello, " +  details[0].customer_name;
+      }
+    </script>
   </body>
 </html>
