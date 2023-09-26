@@ -47,7 +47,7 @@ async function getCustomerById(id) {
   try {
     const query1 = "SELECT * FROM CustomerProfiles WHERE profile_id = ?";
     const query2 = "SELECT * FROM purchase_records WHERE customer_id = ?";
-
+    const query3 = "SELECT * FROM products WHERE seller_id = ?";
     const results1 = await new Promise((resolve, reject) => {
       connection.query(query1, [id], (err, results) => {
         if (err) {
@@ -68,7 +68,17 @@ async function getCustomerById(id) {
       });
     });
 
-    return { customerProfile: results1, purchaseRecords: results2 };
+    const results3 = await new Promise((resolve, reject) => {
+      connection.query(query3, [id], (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    })
+
+    return { customerProfile: results1, purchaseRecords: results2, products_sold: results3 };
   } catch (error) {
     throw error;
   }

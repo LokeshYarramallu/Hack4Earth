@@ -36,6 +36,8 @@
           <h2>Sign Up</h2>
           <form id="signup-form">
             <div class="form-group">
+              <label for="image">Profile image</label>
+              <input type="file" id="fileInput" />
               <label for="name">Name:</label>
               <input
                 type="text"
@@ -162,37 +164,50 @@
         });
 
         const signupForm = document.getElementById("signup-form");
-
+        var finalurl;
+        const fileInput = document.getElementById("fileInput");
         signupForm.addEventListener("submit", function (e) {
           e.preventDefault();
-          const formData = {
-            customer_name: signupForm.querySelector("#name").value,
-            age: signupForm.querySelector("#age").value,
-            phone_number: signupForm.querySelector("#phone_number").value,
-            address: signupForm.querySelector("#address").value,
-            zipcode: signupForm.querySelector("#zipcode").value,
-            gender: signupForm.querySelector("#gender").value,
-            email: signupForm.querySelector("#signup-email").value,
-            password: signupForm.querySelector("#signup-password").value,
-          };
+          const formData = new FormData();
+          formData.append("file", fileInput.files[0]);
 
-          fetch("/customers/register", {
+          fetch("/upload", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
+            body: formData,
           })
-            .then((response) => {
-              if (response.status === 201) {
-                signupForm.reset();
-                alert("User has been successfully registered");
-              } else if (response.status === 409) {
-                alert("You already have an account. Please login.");
-              }
-            })
-            .catch((error) => {
-              console.error("Error:", error);
+            .then((response) => response.json())
+            .then((data) => {
+              finalurl = data.url;
+              const formData = {
+                profile_picture_url: finalurl,
+                customer_name: signupForm.querySelector("#name").value,
+                age: signupForm.querySelector("#age").value,
+                phone_number: signupForm.querySelector("#phone_number").value,
+                address: signupForm.querySelector("#address").value,
+                zipcode: signupForm.querySelector("#zipcode").value,
+                gender: signupForm.querySelector("#gender").value,
+                email: signupForm.querySelector("#signup-email").value,
+                password: signupForm.querySelector("#signup-password").value,
+              };
+
+              fetch("/customers/register", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+              })
+                .then((response) => {
+                  if (response.status === 201) {
+                    signupForm.reset();
+                    alert("User has been successfully registered");
+                  } else if (response.status === 409) {
+                    alert("You already have an account. Please login.");
+                  }
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
             });
         });
       });
