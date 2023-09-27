@@ -2,211 +2,7 @@
 <html>
   <head>
     <title>Product Page</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-      }
-      header {
-        background-color: #333;
-        color: #fff;
-        padding: 1rem;
-      }
-      .main-navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .brand-name {
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-decoration: none;
-        color: #fff;
-      }
-      .nav-links {
-        display: flex;
-        list-style: none;
-      }
-      .nav-item {
-        margin-right: 1rem;
-      }
-      .nav-link {
-        text-decoration: none;
-        color: #fff;
-        font-weight: bold;
-      }
-      .product-page {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: row;
-
-        margin-top: 2rem;
-      }
-      .product-image {
-        width: 45%;
-        margin-bottom: 2rem;
-      }
-      .product-image img {
-        width: 100%;
-        object-fit: contain;
-        height: auto;
-      }
-      .product-title {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-      .product-description {
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
-      }
-      .product-reuse-steps-title {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-      }
-      .product-reuse-steps {
-        list-style: decimal;
-        margin-left: 2rem;
-      }
-      .buy-now-button {
-        background-color: #4caf50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-      }
-      footer {
-        background-color: #333;
-        color: #fff;
-        padding: 1rem;
-        text-align: center;
-        margin-top: 2rem;
-      }
-      .footer-distributed {
-        background-color: #292c2f;
-        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-        box-sizing: border-box;
-        width: 100%;
-        text-align: left;
-        font: bold 16px sans-serif;
-        padding: 50px 50px 60px 50px;
-        margin-top: 80px;
-      }
-      .footer-distributed .footer-left,
-      .footer-distributed .footer-center,
-      .footer-distributed .footer-right {
-        display: inline-block;
-        vertical-align: top;
-      }
-      .footer-distributed .footer-left {
-        width: 40%;
-      }
-      .footer-distributed h3 {
-        color: #ffffff;
-        font: normal 36px "Cookie", cursive;
-        margin: 0;
-      }
-      .footer-distributed h3 span {
-        color: #5383d3;
-      }
-      .footer-distributed .footer-links {
-        color: #ffffff;
-        margin: 20px 0 12px;
-        padding: 0;
-      }
-      .footer-distributed .footer-links a {
-        display: inline-block;
-        line-height: 1.8;
-        text-decoration: none;
-        color: inherit;
-      }
-      .footer-distributed .footer-company-name {
-        color: #8f9296;
-        font-size: 14px;
-        font-weight: normal;
-        margin: 0;
-      }
-      .footer-distributed .footer-center {
-        width: 35%;
-      }
-      .footer-distributed .footer-center i {
-        background-color: #33383b;
-        color: #ffffff;
-        font-size: 25px;
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 42px;
-        margin: 10px 15px;
-        vertical-align: middle;
-      }
-      .footer-distributed .footer-center i.fa-envelope {
-        font-size: 17px;
-        line-height: 38px;
-      }
-      .footer-distributed .footer-center p {
-        display: inline-block;
-        color: #ffffff;
-        vertical-align: middle;
-        margin: 0;
-      }
-      .footer-distributed .footer-center p span {
-        display: block;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 2;
-      }
-      .footer-distributed .footer-center p a {
-        color: #5383d3;
-        text-decoration: none;
-      }
-      .footer-distributed .footer-right {
-        width: 20%;
-      }
-      .footer-distributed .footer-company-about {
-        line-height: 20px;
-        color: #92999f;
-        font-size: 13px;
-        font-weight: normal;
-        margin: 0;
-      }
-      .footer-distributed .footer-company-about span {
-        display: block;
-        color: #ffffff;
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
-      .footer-distributed .footer-icons {
-        margin-top: 25px;
-      }
-      .footer-distributed .footer-icons a {
-        display: inline-block;
-        width: 35px;
-        height: 35px;
-        cursor: pointer;
-        background-color: #33383b;
-        border-radius: 2px;
-        font-size: 20px;
-        color: #ffffff;
-        text-align: center;
-        line-height: 35px;
-        margin-right: 3px;
-        margin-bottom: 5px;
-      }
-    </style>
+    <link rel="stylesheet" href="/views/productpagestyles.css" />
   </head>
   <body>
     <header>
@@ -298,54 +94,57 @@
     </footer>
 
     <script>
-            // var page_title = document.getElementById("page-title");
-            var product_image = document.getElementById("product-image");
-            var product_title = document.getElementById("product-title");
-            var product_description = document.getElementById("product-description");
-            var product_price = document.getElementById("product-price");
-            var product;
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get("id");
-            fetch(`/products/${productId}`, {
-              method: "GET",
-            })
-              .then((response) => {
-                return response.json();
-              })
-              .then(async (data) => {
-                product = data;
-                product_image.src = ".." + product[0].product_image_url;
-                product_title.innerHTML = product[0].product_name;
-                product_price.innerHTML = "Price : " + product[0].product_cost;
-                product_description.innerHTML =
-                  product[0].product_discription +
-                  "<br>" +
-                  "<p>Sustainability Score:</p>" +
-                  product[0].sustainability_score +
-                  "<br>" +
-                  "<p>Carbon Footprint:</p>" +
-                  product[0].carbon_footprint;
+      // var page_title = document.getElementById("page-title");
+      var product_image = document.getElementById("product-image");
+      var product_title = document.getElementById("product-title");
+      var product_description = document.getElementById("product-description");
+      var product_price = document.getElementById("product-price");
+      var product;
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get("id");
+      fetch(`/products/${productId}`, {
+        method: "GET",
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then(async (data) => {
+          product = data;
+          product_image.src = ".." + product[0].product_image_url;
+          product_title.innerHTML = product[0].product_name;
+          product_price.innerHTML = "Price : " + product[0].product_cost;
+          product_description.innerHTML =
+            product[0].product_discription +
+            "<br>" +
+            "<p>Sustainability Score:</p>" +
+            product[0].sustainability_score +
+            "<br>" +
+            "<p>Carbon Footprint:</p>" +
+            product[0].carbon_footprint;
 
-                  fetch(`https://chatgpt-api8.p.rapidapi.com/`, {
-                    method: 'POST',
-                    headers: {
-                      'content-type': 'application/json',
-                      'X-RapidAPI-Key': '83d8e0facbmsheb5d6764b885276p1c5a54jsnc3bb6fb339f4',
-                      'X-RapidAPI-Host': 'chatgpt-api8.p.rapidapi.com'
-                    },
-                    body: [
-                      {
-                        content: 'give the reusing steps of plastic bottles in industires dont include collection and all i have already bought a bulk of news papers just tell me how can i use them in steps each step in li element give as html only give the li elements no need of complete html code.',
-                        role: 'user'
-                      }
-                    ]
-                  }).then((response) => {
-                    return response.text();
-                  })
-                  .then((result) => {
-                    console.log(result.text);
-                  })
-              });
+          fetch(`https://chatgpt-api8.p.rapidapi.com/`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "X-RapidAPI-Key":
+                "83d8e0facbmsheb5d6764b885276p1c5a54jsnc3bb6fb339f4",
+              "X-RapidAPI-Host": "chatgpt-api8.p.rapidapi.com",
+            },
+            body: [
+              {
+                content:
+                  "give the reusing steps of plastic bottles in industires dont include collection and all i have already bought a bulk of news papers just tell me how can i use them in steps each step in li element give as html only give the li elements no need of complete html code.",
+                role: "user",
+              },
+            ],
+          })
+            .then((response) => {
+              return response.text();
+            })
+            .then((result) => {
+              console.log(result.text);
+            });
+        });
     </script>
   </body>
 </html>
