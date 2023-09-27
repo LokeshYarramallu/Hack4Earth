@@ -19,8 +19,21 @@ async function getProducts() {
     });
 }
 
+async function getrecentproducts() {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM products WHERE updated_at >= CURDATE() - INTERVAL 3 DAY';
+        connection.query(query, (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
+    })
+}
+
 async function addProduct(product) {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         const query = 'INSERT INTO products SET ?';
         connection.query(query, [product], (err, results) => {
             if (err) {
@@ -78,10 +91,25 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const newproduct = req.body;
-        await addProduct(newproduct);
-        res.send('Product added');
+        const results = await addProduct(newproduct);
+        if (results.affectedRows > 0) {
+            res.status(201).send('Product added');
+        }
+        else {
+            res.status(409).send('Product already exists');
+        }
     }
     catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+})
+
+router.get('/recent', async (req, res, next) => {
+    try {
+        const products = await getrecentproducts();
+        res.status(200).send(products);
+    } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
@@ -91,7 +119,7 @@ router.get('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
         const product = await getProductbyID(id);
-        res.send(product);
+        res.status(200).send(product);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

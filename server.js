@@ -20,8 +20,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.use(express.static(__dirname + "/clientjs"));
+app.use("/views",express.static( __dirname + "/views"));
+app.use("/uploads",express.static( __dirname + "/uploads"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/products", productRoute);
@@ -33,6 +33,9 @@ app.get("/signin", (req, res) => {
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
+app.get("/productpage", (req, res) => {
+  res.sendFile(__dirname + "/views/productpage.html");
+});
 
 app.post("/upload", upload.single("file"), (req, res) => {
   if (!req.file) {
@@ -41,6 +44,10 @@ app.post("/upload", upload.single("file"), (req, res) => {
   const publicUrl = `/uploads/${req.file.filename}`;
   res.json({ url: publicUrl });
 });
+
+app.get("/addproduct", (req, res) => {
+  res.sendFile(__dirname + "/views/addproduct.html");
+})
 
 app.listen(80, () => {
   console.log("Server is running at : " + `http://localhost:80`);
