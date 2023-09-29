@@ -2,104 +2,58 @@
 <html>
   <head>
     <title>Add Product</title>
-    <style>
-      /* style.css */
-
-      /* Body styles */
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        margin: 0;
-        padding: 0;
-      }
-
-      /* Container styles */
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      /* Form styles */
-      .form {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-
-      .form label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: bold;
-      }
-
-      .form input[type="text"],
-      .form input[type="number"] {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
-
-      .form button {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      .form button:hover {
-        background-color: #45a049;
-      }
-
-      /* Table styles */
-      .table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      .table th,
-      .table td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-
-      .table th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-      }
-
-      /* Image styles */
-      .product-image {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 10px;
-      }
-
-      /* Success message styles */
-      .success-message {
-        background-color: #d4edda;
-        color: #155724;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
-
-      /* Error message styles */
-      .error-message {
-        background-color: #f8d7da;
-        color: #721c24;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
-    </style>
   </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    #productForm {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+  </style>
   <body>
     <h1>Add Product</h1>
     <form id="productForm">
@@ -192,7 +146,7 @@
               product_cost: productCost,
               carbon_footprint: carbonFootprint,
               sustainability_score: sustainabilityScore,
-              product_discription : productdiscription,
+              product_discription: productdiscription,
               seller_id: userDetails.profile_id,
             };
             console.log(finalurl);
