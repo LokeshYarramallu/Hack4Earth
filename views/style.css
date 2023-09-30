@@ -10,7 +10,7 @@
   color: #fff;
 }
 .main-navbar .top-navbar .nav-link {
-  color: #fff;
+  color: #000;
   font-size: 16px;
   font-weight: 500;
 }
@@ -21,7 +21,7 @@
 .main-navbar .top-navbar .dropdown-menu .dropdown-item {
   padding: 8px 16px;
   border-bottom: 1px solid #ccc;
-  font-size: 14px;a
+  font-size: 14px;
 }
 .main-navbar .top-navbar .dropdown-menu .dropdown-item i {
   width: 20px;
@@ -38,7 +38,65 @@
   color: #000;
   font-size: 15px;
 }
+/* Carousel */
+.carousel {
+  border-radius: 10px;
+  overflow: hidden;
+  margin:50px;
+}
 
+.carousel-inner {
+  border-radius: 10px;
+}
+
+.carousel-item {
+  position: relative;
+}
+
+.carousel-caption {
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  color: yellow;
+}
+
+.carousel-indicators {
+  animation: bounce 2s infinite;
+}
+
+
+.carousel-control-prev,
+.carousel-control-next {
+  background: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  top: calc(50% - 20px);
+  transition: background-color 0.3s;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: orange;
+  transition: background-color 0.3s;
+}
+
+.carousel-control-prev-icon,
+
+
+.carousel-control-prev-icon{
+  background-image: url('arrow-left-circled.svg'); 
+
+}
+
+.carousel-control-next-icon{
+  background-image: url('arrow-right-circle.svg'); 
+
+}
+
+.carousel-item:hover {
+  transform: scale(1.02); 
+}
 @media only screen and (max-width: 600px) {
   .main-navbar .top-navbar .nav-link {
     font-size: 12px;
@@ -84,7 +142,7 @@
 /* Footer links */
 
 .footer-distributed .footer-links {
-  color: #ffffff;
+  color: #000;
   margin: 20px 0 12px;
   padding: 0;
 }
