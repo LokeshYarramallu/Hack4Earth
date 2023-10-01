@@ -21,7 +21,7 @@ async function getProducts() {
 
 async function getrecentproducts() {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM products WHERE updated_at >= CURDATE() - INTERVAL 3 DAY';
+        const query = 'SELECT * FROM products WHERE updated_at >= CURDATE() - INTERVAL 10 DAY';
         connection.query(query, (err, results) => {
             if (err) {
                 reject(err);
