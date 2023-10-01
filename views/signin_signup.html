@@ -4,7 +4,92 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      href="https://bouncecss.bookie0.repl.co/bounce.css"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
+
+  <style>
+    /* Reset some default styles */
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Style the container */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Style the row */
+    .row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Style the columns */
+    .col-md-6 {
+      flex: 0 0 calc(50% - 10px);
+      margin-right: 10px;
+    }
+
+    /* Style the forms */
+    form {
+      margin-top: 20px;
+    }
+
+    /* Style form labels */
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Style form inputs */
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* Style the file input */
+    #fileInput {
+      margin-bottom: 15px;
+    }
+
+    /* Style the submit buttons */
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Style the buttons on hover */
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    /* Style the error alert */
+    .alert-error {
+      color: #ff0000;
+      margin-top: 10px;
+    }
+
+    /* Add some spacing between the forms */
+    .form-group {
+      margin-bottom: 15px;
+    }
+  </style>
   <body>
     <div class="container">
       <div class="row">
